@@ -1,0 +1,68 @@
+<!-- /DigiHaul/app/templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHaul Shipment Prediction</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DigiHaul Shipment Prediction</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="shipment_number">Shipment Number</label>
+                <input type="text" id="shipment_number" name="shipment_number" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_size">Vehicle Size</label>
+                <input type="text" id="vehicle_size" name="vehicle_size" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_build_up">Vehicle Build Up</label>
+                <input type="text" id="vehicle_build_up" name="vehicle_build_up" required>
+            </div>
+            <div class="form-group">
+                <label for="first_collection_latitude">First Collection Latitude</label>
+                <input type="number" step="any" id="first_collection_latitude" name="first_collection_latitude" required>
+            </div>
+            <div class="form-group">
+                <label for="first_collection_longitude">First Collection Longitude</label>
+                <input type="number" step="any" id="first_collection_longitude" name="first_collection_longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="last_delivery_latitude">Last Delivery Latitude</label>
+                <input type="number" step="any" id="last_delivery_latitude" name="last_delivery_latitude" required>
+            </div>
+            <div class="form-group">
+                <label for="last_delivery_longitude">Last Delivery Longitude</label>
+                <input type="number" step="any" id="last_delivery_longitude" name="last_delivery_longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="last_delivery_schedule_earliest">Last Delivery Schedule Earliest</label>
+                <input type="datetime-local" id="last_delivery_schedule_earliest" name="last_delivery_schedule_earliest" required>
+            </div>
+            <div class="form-group">
+                <label for="last_delivery_schedule_latest">Last Delivery Schedule Latest</label>
+                <input type="datetime-local" id="last_delivery_schedule_latest" name="last_delivery_schedule_latest" required>
+            </div>
+            <div class="form-group">
+                <label for="shipper_id">Shipper ID</label>
+                <input type="text" id="shipper_id" name="shipper_id" required>
+            </div>
+            <div class="form-group">
+                <label for="carrier_id">Carrier ID</label>
+                <input type="text" id="carrier_id" name="carrier_id" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        {% if result %}
+        <div class="result">
+            <h2>Prediction Result: {{ result }}</h2>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
