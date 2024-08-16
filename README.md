@@ -44,7 +44,7 @@ This Python web application uses a pre-trained model to predict the likelihood o
 
 ##1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-repo/shipment_delay_predictor.git
+   git clone https://github.com/your-repo/ShipmentDelayPredaApp.git
    cd shipment_delay_predictor
 2.	## Install Required Packages:
 
