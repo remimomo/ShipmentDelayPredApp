@@ -2,8 +2,14 @@ import pandas as pd
 from datetime import datetime, timedelta
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.metrics import classification_report
 import joblib
+
+# Load the datasets
+shipment_bookings = pd.read_csv('/Users/remimomo/Documents/shipment_delay_prediction_v2/data/Shipment_bookings.csv')
+gps_data = pd.read_csv('/Users/remimomo/Documents/shipment_delay_prediction_v2/data/GPS_data.csv')
+new_bookings = pd.read_csv('/Users/remimomo/Documents/shipment_delay_prediction_v2/data/New_bookings.csv')
 
 # Haversine function to calculate the distance between two latitude-longitude points
 def haversine(lat1, lon1, lat2, lon2):
@@ -23,11 +29,10 @@ def haversine(lat1, lon1, lat2, lon2):
 
     return distance
 
-# Load datasets
-shipment_bookings = pd.read_csv('/Users/remimomo/Documents/shipment_delay_prediction_v1/data/Shipment_bookings.csv')
-gps_data = pd.read_csv('/Users/remimomo/Documents/shipment_delay_prediction_v1/data/GPS_data.csv')
-
-# Convert time columns to datetime
+# Step 1: Convert relevant columns to datetime format
+# This is necessary to perform date-based operations accurately
+shipment_bookings['FIRST_COLLECTION_SCHEDULE_EARLIEST'] = pd.to_datetime(shipment_bookings['FIRST_COLLECTION_SCHEDULE_EARLIEST'])
+shipment_bookings['FIRST_COLLECTION_SCHEDULE_LATEST'] = pd.to_datetime(shipment_bookings['FIRST_COLLECTION_SCHEDULE_LATEST'])
 shipment_bookings['LAST_DELIVERY_SCHEDULE_EARLIEST'] = pd.to_datetime(shipment_bookings['LAST_DELIVERY_SCHEDULE_EARLIEST'])
 shipment_bookings['LAST_DELIVERY_SCHEDULE_LATEST'] = pd.to_datetime(shipment_bookings['LAST_DELIVERY_SCHEDULE_LATEST'])
 gps_data['RECORD_TIMESTAMP'] = pd.to_datetime(gps_data['RECORD_TIMESTAMP'])
@@ -70,15 +75,19 @@ Xe = pd.get_dummies(Xt, columns=['VEHICLE_SIZE', 'VEHICLE_BUILD_UP', 'SHIPMENT_N
 X_train, X_test, y_train, y_test = train_test_split(Xe, y, test_size=0.2, train_size=0.8, random_state=42)
 
 # Train a RandomForestClassifier
+#model = RandomForestClassifier(n_estimators=100, random_state=42)
 model = RandomForestClassifier(n_estimators = 100,
                            random_state = 42,
                            min_samples_split = 10,
                            max_features = "sqrt",
                            bootstrap = True)
+
 model.fit(X_train, y_train)
 
-# Evaluate the model
+# Predict on the test set and evaluate the model's performance
 y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
+print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
 # Save the trained model

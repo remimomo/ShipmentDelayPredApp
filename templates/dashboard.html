@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Monitoring Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Real-Time Monitoring Dashboard</h1>
+        
+        <div id="prediction-result">
+            <h2>Current Prediction: {{ data.prediction }}</h2>
+        </div>
+        
+        <div id="traffic-weather-chart">
+            <h3>Traffic and Weather Conditions</h3>
+            <div id="chart"></div>
+        </div>
+        
+        <script>
+            var graph_json = {{ graph_json | safe }};
+            Plotly.newPlot('chart', graph_json.data, graph_json.layout);
+        </script>
+    </div>
+</body>
+</html>

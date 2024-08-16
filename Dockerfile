@@ -17,4 +17,4 @@ EXPOSE 5000
 ENV NAME ShipmentDelayPredictor
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000"]

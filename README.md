@@ -1,28 +1,25 @@
-## Directory Structure
 
-shipment_delay_prediction/
-├── data/
-│   ├── GPS_data.csv
-│   ├── Shipment_bookings.csv
-│   ├── New_bookings.csv
-├── src/
-│   ├── app.py
-│   ├── model.py
-│   ├── data_processing.py
-│   ├── api_integration.py
-│   ├── config.py
-│   ├── templates/
-│   │   ├── index.html
-│   │   ├── result.html
-│   ├── static/
-│   │   ├── styles.css
-│   ├── tests/
-│   │   ├── test_model.py
-│   │   └── test_data_processing.py
-├── requirements.txt
-├── Procfile
-├── README.md
-└── .env
+##PROJECT STRUCTURE
+shipment_delay_predictor/
+│
+├── app.py                # Main Flask application with API integration
+├── model.pkl             # Pre-trained RandomForest model
+├── requirements.txt      # Python package requirements
+├── Procfile              # Heroku Procfile for deployment
+├── Dockerfile            # Dockerfile for containerization
+├── dashboard.py          # Flask app for real-time dashboard
+├── templates/
+│   ├── index.html        # Main HTML file for the prediction UI
+│   └── dashboard.html    # HTML file for the real-time monitoring dashboard
+├── static/
+│   ├── style.css         # CSS for styling the web app
+│   └── dashboard.css     # CSS for the dashboard styling
+├── tests/
+│   └── test_app.py       # Unit tests for the Flask app
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml     # GitHub Actions workflow for CI/CD pipeline
+└── README.md             # Documentation with setup instructions
 
 # SHIPMENT DELAY PREDICTOR
 

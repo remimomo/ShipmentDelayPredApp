@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Delay Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Shipment Delay Predictor</h1>
+        <form action="/predict" method="POST">
+            <label for="vehicle_size">Vehicle Size:</label>
+            <input type="text" id="vehicle_size" name="vehicle_size" required>
+            
+            <label for="vehicle_build_up">Vehicle Build Up:</label>
+            <input type="text" id="vehicle_build_up" name="vehicle_build_up" required>
+            
+            <label for="first_collection_time">First Collection Time:</label>
+            <input type="datetime-local" id="first_collection_time" name="first_collection_time" required>
+            
+            <label for="last_delivery_time">Last Delivery Time:</label>
+            <input type="datetime-local" id="last_delivery_time" name="last_delivery_time" required>
+            
+            <label for="destination_lat">Destination Latitude:</label>
+            <input type="text" id="destination_lat" name="destination_lat" required>
+            
+            <label for="destination_lon">Destination Longitude:</label>
+            <input type="text" id="destination_lon" name="destination_lon" required>
+            
+            <input type="submit" value="Predict">
+        </form>
+        <div class="result">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+    </div>
+</body>
+</html>
