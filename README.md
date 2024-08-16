@@ -92,7 +92,7 @@ heroku create your-app-name
 Step 1: Set Up a GitHub Repository
 Create a GitHub repository and push your local project to GitHub:
 
-git remote add origin https://github.com/yourusername/your-repo-name.git
+git remote add origin (https://github.com/your-repo/ShipmentDelayPredaApp.git)
 git push -u origin master
 
 Step 2: Create a .github/workflows Directory
