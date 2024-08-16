@@ -1,0 +1,67 @@
+########## Anaysing the impact of weather conditions on shipment delays ##########
+########## Data Preparation #######
+# Load the dataset and ensuring the necessary columns (WEATHER_CONDITION and DELAY_STATUS) are present.
+import pandas as pd
+
+# Sample dataset simulation
+data = {
+    'WEATHER_CONDITION': ['Clear', 'Rain', 'Clear', 'Snow', 'Clear', 'Rain', 'Fog', 'Clear', 'Snow', 'Fog'],
+    'DELAY_STATUS': [0, 1, 0, 1, 0, 1, 1, 0, 1, 1]
+}
+
+shipment_data = pd.DataFrame(data)
+
+# Display the first few rows to ensure the dataset is as expected
+shipment_data.head()
+
+########## Descriptive Analysis ##########
+# Summarise the data to understand the distribution of weather conditions and how often #delays occur.
+# Calculate the frequency of each weather condition
+weather_distribution = shipment_data['WEATHER_CONDITION'].value_counts()
+
+# Calculate the percentage of delays for each weather condition
+delay_by_weather = shipment_data.groupby('WEATHER_CONDITION')['DELAY_STATUS'].mean() * 100
+
+# Combine these two into a single DataFrame for clarity
+weather_delay_analysis = pd.DataFrame({
+    'Frequency': weather_distribution,
+    'Delay_Percentage': delay_by_weather
+}).sort_values(by='Delay_Percentage', ascending=False)
+
+# Display the results
+weather_delay_analysis
+
+########## Visualisation ##########
+## Create visualisations to better understand the relationship between weather conditions and # delays.
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Bar plot to show the frequency of delays by weather condition
+plt.figure(figsize=(10, 6))
+sns.barplot(x=weather_delay_analysis.index, y=weather_delay_analysis['Delay_Percentage'])
+plt.title('Percentage of Delays by Weather Condition')
+plt.ylabel('Delay Percentage (%)')
+plt.xlabel('Weather Condition')
+plt.show()
+
+# Count plot to show the distribution of weather conditions and their associated delay status
+plt.figure(figsize=(10, 6))
+sns.countplot(x='WEATHER_CONDITION', hue='DELAY_STATUS', data=shipment_data)
+plt.title('Count of Delays vs On-Time Shipments by Weather Condition')
+plt.ylabel('Count')
+plt.xlabel('Weather Condition')
+plt.show()
+
+########## Statistical Analysis ##########
+# Perform a Chi-Square test to determine if there's a significant association between weather # conditions and delays.
+from scipy.stats import chi2_contingency
+
+# Create a contingency table
+contingency_table = pd.crosstab(shipment_data['WEATHER_CONDITION'], shipment_data['DELAY_STATUS'])
+
+# Perform the Chi-Square test
+chi2, p, dof, expected = chi2_contingency(contingency_table)
+
+# Display the results
+print(f"Chi-Square Statistic: {chi2}")
+print(f"P-value: {p}")
