@@ -1,6 +1,6 @@
 
 ##PROJECT STRUCTURE
-shipment_delay_predictor/
+ShipmentpDelayApp_v2/
 │
 ├── app.py                # Main Flask application with API integration
 ├── model.pkl             # Pre-trained RandomForest model
@@ -36,12 +36,13 @@ This Python web application uses a pre-trained model to predict the likelihood o
 - Pandas
 - scikit-learn
 - Requests (for API calls)
+- plotly
 
 ## Setup and Running the Application
 
 ##1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-repo/shipment_delay_predictor.git
+   git clone https://github.com/remimomo/ShipmentDelaypredApp_v2.git
    cd shipment_delay_predictor
 2.	## Install Required Packages:
 
